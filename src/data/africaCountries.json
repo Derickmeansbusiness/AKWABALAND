@@ -1,0 +1,332 @@
+{
+  "108": {
+    "name": "Burundi",
+    "iso3": "BDI",
+    "region": "east",
+    "interactive": true
+  },
+  "120": {
+    "name": "Cameroon",
+    "iso3": "CMR",
+    "region": "central",
+    "interactive": true
+  },
+  "132": {
+    "name": "Cabo Verde",
+    "iso3": "CPV",
+    "region": "west",
+    "interactive": true
+  },
+  "140": {
+    "name": "Central African Republic",
+    "iso3": "CAF",
+    "region": "central",
+    "interactive": true
+  },
+  "148": {
+    "name": "Chad",
+    "iso3": "TCD",
+    "region": "central",
+    "interactive": true
+  },
+  "174": {
+    "name": "Comoros",
+    "iso3": "COM",
+    "region": "east",
+    "interactive": true
+  },
+  "178": {
+    "name": "Republic of the Congo",
+    "iso3": "COG",
+    "region": "central",
+    "interactive": true
+  },
+  "180": {
+    "name": "Democratic Republic of the Congo",
+    "iso3": "COD",
+    "region": "central",
+    "interactive": true
+  },
+  "204": {
+    "name": "Benin",
+    "iso3": "BEN",
+    "region": "west",
+    "interactive": true
+  },
+  "226": {
+    "name": "Equatorial Guinea",
+    "iso3": "GNQ",
+    "region": "central",
+    "interactive": true
+  },
+  "231": {
+    "name": "Ethiopia",
+    "iso3": "ETH",
+    "region": "east",
+    "interactive": true
+  },
+  "232": {
+    "name": "Eritrea",
+    "iso3": "ERI",
+    "region": "east",
+    "interactive": true
+  },
+  "262": {
+    "name": "Djibouti",
+    "iso3": "DJI",
+    "region": "east",
+    "interactive": true
+  },
+  "266": {
+    "name": "Gabon",
+    "iso3": "GAB",
+    "region": "central",
+    "interactive": true
+  },
+  "270": {
+    "name": "The Gambia",
+    "iso3": "GMB",
+    "region": "west",
+    "interactive": true
+  },
+  "288": {
+    "name": "Ghana",
+    "iso3": "GHA",
+    "region": "west",
+    "interactive": true
+  },
+  "324": {
+    "name": "Guinea",
+    "iso3": "GIN",
+    "region": "west",
+    "interactive": true
+  },
+  "384": {
+    "name": "Côte d'Ivoire",
+    "iso3": "CIV",
+    "region": "west",
+    "interactive": true
+  },
+  "404": {
+    "name": "Kenya",
+    "iso3": "KEN",
+    "region": "east",
+    "interactive": true
+  },
+  "426": {
+    "name": "Lesotho",
+    "iso3": "LSO",
+    "region": "southern",
+    "interactive": true
+  },
+  "430": {
+    "name": "Liberia",
+    "iso3": "LBR",
+    "region": "west",
+    "interactive": true
+  },
+  "434": {
+    "name": "Libya",
+    "iso3": "LBY",
+    "region": "north",
+    "interactive": true
+  },
+  "450": {
+    "name": "Madagascar",
+    "iso3": "MDG",
+    "region": "east",
+    "interactive": true
+  },
+  "454": {
+    "name": "Malawi",
+    "iso3": "MWI",
+    "region": "southern",
+    "interactive": true
+  },
+  "466": {
+    "name": "Mali",
+    "iso3": "MLI",
+    "region": "west",
+    "interactive": true
+  },
+  "478": {
+    "name": "Mauritania",
+    "iso3": "MRT",
+    "region": "west",
+    "interactive": true
+  },
+  "480": {
+    "name": "Mauritius",
+    "iso3": "MUS",
+    "region": "east",
+    "interactive": true
+  },
+  "504": {
+    "name": "Morocco",
+    "iso3": "MAR",
+    "region": "north",
+    "interactive": true
+  },
+  "508": {
+    "name": "Mozambique",
+    "iso3": "MOZ",
+    "region": "southern",
+    "interactive": true
+  },
+  "516": {
+    "name": "Namibia",
+    "iso3": "NAM",
+    "region": "southern",
+    "interactive": true
+  },
+  "562": {
+    "name": "Niger",
+    "iso3": "NER",
+    "region": "west",
+    "interactive": true
+  },
+  "566": {
+    "name": "Nigeria",
+    "iso3": "NGA",
+    "region": "west",
+    "interactive": true
+  },
+  "624": {
+    "name": "Guinea-Bissau",
+    "iso3": "GNB",
+    "region": "west",
+    "interactive": true
+  },
+  "646": {
+    "name": "Rwanda",
+    "iso3": "RWA",
+    "region": "east",
+    "interactive": true
+  },
+  "678": {
+    "name": "São Tomé and Príncipe",
+    "iso3": "STP",
+    "region": "central",
+    "interactive": true
+  },
+  "686": {
+    "name": "Senegal",
+    "iso3": "SEN",
+    "region": "west",
+    "interactive": true
+  },
+  "690": {
+    "name": "Seychelles",
+    "iso3": "SYC",
+    "region": "east",
+    "interactive": true
+  },
+  "694": {
+    "name": "Sierra Leone",
+    "iso3": "SLE",
+    "region": "west",
+    "interactive": true
+  },
+  "706": {
+    "name": "Somalia",
+    "iso3": "SOM",
+    "region": "east",
+    "interactive": true
+  },
+  "710": {
+    "name": "South Africa",
+    "iso3": "ZAF",
+    "region": "southern",
+    "interactive": true
+  },
+  "716": {
+    "name": "Zimbabwe",
+    "iso3": "ZWE",
+    "region": "southern",
+    "interactive": true
+  },
+  "728": {
+    "name": "South Sudan",
+    "iso3": "SSD",
+    "region": "east",
+    "interactive": true
+  },
+  "729": {
+    "name": "Sudan",
+    "iso3": "SDN",
+    "region": "north",
+    "interactive": true
+  },
+  "732": {
+    "name": "Western Sahara",
+    "iso3": "ESH",
+    "region": null,
+    "interactive": false
+  },
+  "748": {
+    "name": "Eswatini",
+    "iso3": "SWZ",
+    "region": "southern",
+    "interactive": true
+  },
+  "768": {
+    "name": "Togo",
+    "iso3": "TGO",
+    "region": "west",
+    "interactive": true
+  },
+  "788": {
+    "name": "Tunisia",
+    "iso3": "TUN",
+    "region": "north",
+    "interactive": true
+  },
+  "800": {
+    "name": "Uganda",
+    "iso3": "UGA",
+    "region": "east",
+    "interactive": true
+  },
+  "818": {
+    "name": "Egypt",
+    "iso3": "EGY",
+    "region": "north",
+    "interactive": true
+  },
+  "834": {
+    "name": "Tanzania",
+    "iso3": "TZA",
+    "region": "east",
+    "interactive": true
+  },
+  "854": {
+    "name": "Burkina Faso",
+    "iso3": "BFA",
+    "region": "west",
+    "interactive": true
+  },
+  "894": {
+    "name": "Zambia",
+    "iso3": "ZMB",
+    "region": "southern",
+    "interactive": true
+  },
+  "012": {
+    "name": "Algeria",
+    "iso3": "DZA",
+    "region": "north",
+    "interactive": true
+  },
+  "024": {
+    "name": "Angola",
+    "iso3": "AGO",
+    "region": "southern",
+    "interactive": true
+  },
+  "072": {
+    "name": "Botswana",
+    "iso3": "BWA",
+    "region": "southern",
+    "interactive": true
+  }
+}

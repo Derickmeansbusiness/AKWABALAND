@@ -1,0 +1,10 @@
+import { chromium } from 'playwright-core';
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--use-gl=swiftshader','--enable-webgl','--ignore-gpu-blocklist'] });
+const p = await b.newPage({ viewport: { width: 1600, height: 900 } });
+p.on('pageerror', e => console.log('PAGEERROR', e.message, '\n', e.stack));
+p.on('console', m => (m.type()==='error'||m.type()==='warning') && console.log('CONSOLE', m.type(), m.text().slice(0,300)));
+await p.goto('' + (process.argv[2] ?? 'http://localhost:3001/') + '', { waitUntil: 'domcontentloaded', timeout: 60000 });
+await p.waitForTimeout(4000);
+const gl = await p.evaluate(() => { const c=document.createElement('canvas'); return !!(c.getContext('webgl2')||c.getContext('webgl')); });
+console.log('webgl', gl, 'canvas count', await p.evaluate(() => document.querySelectorAll('canvas').length));
+await b.close();

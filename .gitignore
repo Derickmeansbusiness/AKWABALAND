@@ -1,0 +1,23 @@
+# dependencies
+node_modules
+
+# next
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+
+# downloaded / encoded media (large; produced by `npm run media:fetch`)
+public/media/akwaba/*/
+public/media/akwaba/placeholders.json
+
+# env
+.env
+.env.local
+.env.*.local
+
+# local QA output
+qa/screenshots
+
+# os
+.DS_Store

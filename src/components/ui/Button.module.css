@@ -1,0 +1,94 @@
+.button {
+  --pad-x: 1.5rem;
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 3rem;
+  padding: 0 var(--pad-x);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 1px;
+  color: var(--fg);
+  font-family: var(--font-text);
+  font-size: var(--text-label);
+  font-weight: 400;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    border-color var(--dur-base) var(--ease-ui),
+    background-color var(--dur-base) var(--ease-ui),
+    color var(--dur-base) var(--ease-ui);
+}
+.label {
+  display: inline-block;
+  transition: transform var(--dur-base) var(--ease-ui);
+}
+.arrow {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  line-height: 1;
+  transform: translateY(-1px);
+  transition: transform var(--dur-base) var(--ease-ui);
+}
+
+.button:hover,
+.button:focus-visible {
+  border-color: var(--stone);
+}
+.button:hover .label,
+.button:focus-visible .label {
+  transform: translateX(2px);
+}
+.button:hover .arrow,
+.button:focus-visible .arrow {
+  transform: translate(3px, -1px);
+}
+
+/* Primary: soft inversion on hover rather than a fill by default. */
+.primary {
+  border-color: var(--stone);
+}
+.primary:hover,
+.primary:focus-visible {
+  background: var(--ivory);
+  color: var(--obsidian);
+  border-color: var(--ivory);
+}
+
+.ghost {
+}
+
+/* Text: no box, an underline that grows from the left. */
+.text {
+  border-color: transparent;
+  padding: 0;
+  min-height: 0;
+  position: relative;
+}
+.text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  height: 1px;
+  width: 100%;
+  background: var(--stone);
+  transform: scaleX(0.3);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-ui);
+}
+.text:hover::after,
+.text:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .label,
+  .arrow,
+  .text::after {
+    transition: none;
+  }
+}

@@ -1,0 +1,219 @@
+.page {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--obsidian);
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-6);
+  padding: clamp(1rem, 2.4vh, 1.75rem) var(--gutter);
+}
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.back {
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+.back:hover {
+  color: var(--fg);
+}
+
+.main {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 6rem);
+  padding: clamp(3rem, 10vh, 7rem) var(--gutter) clamp(4rem, 12vh, 9rem);
+  max-width: 90rem;
+  width: 100%;
+  margin: 0 auto;
+}
+@media (min-width: 900px) {
+  .main {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+  .titleCol {
+    position: sticky;
+    top: clamp(3rem, 10vh, 7rem);
+  }
+}
+.titleCol {
+  display: grid;
+  gap: var(--space-6);
+}
+.intro {
+  color: var(--fg-muted);
+}
+.aside {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--hairline);
+}
+
+.bodyCol {
+  display: grid;
+  gap: clamp(2.5rem, 6vh, 4rem);
+}
+.section {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--hairline);
+}
+.sectionBody {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.footer {
+  padding: var(--space-8) var(--gutter);
+  border-top: 1px solid var(--hairline);
+}
+
+/* ─── Shared pieces for the aux pages ─── */
+.stages {
+  display: grid;
+  gap: 0;
+}
+.stage {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: var(--space-4);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.stage:last-child {
+  border-bottom: 0;
+}
+.stageIndex {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--fg-faint);
+  line-height: 1;
+}
+.stageIndex[data-status='current'] {
+  color: var(--gold);
+}
+.stageTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-display-s);
+  line-height: 1.15;
+  margin-bottom: var(--space-2);
+}
+.stageStatus {
+  margin-left: 0.75rem;
+  font-family: var(--font-text);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--gold);
+  vertical-align: middle;
+}
+
+.list {
+  display: grid;
+  gap: 0.6rem;
+  columns: 1;
+}
+.list li {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: 0.5rem;
+  color: var(--fg-muted);
+  font-size: var(--text-body);
+}
+.list li::before {
+  content: '';
+  width: 0.75rem;
+  height: 1px;
+  background: var(--hairline-strong);
+  margin-top: 0.8em;
+}
+@media (min-width: 700px) {
+  .list {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-8);
+  }
+}
+
+.principle {
+  display: grid;
+  gap: 0.4rem;
+}
+.principleTitle {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+}
+
+.form {
+  display: grid;
+  gap: var(--space-6);
+}
+.field {
+  display: grid;
+  gap: 0.5rem;
+}
+.input,
+.select,
+.textarea {
+  font: inherit;
+  font-size: 1.0625rem;
+  color: var(--fg);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--hairline-strong);
+  padding: 0.7rem 0;
+  outline: none;
+  border-radius: 0;
+  transition: border-color var(--dur-base) var(--ease-ui);
+}
+.select option {
+  background: var(--black-warm);
+}
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--gold);
+}
+.textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+.formRow {
+  display: grid;
+  gap: var(--space-6);
+}
+@media (min-width: 700px) {
+  .formRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.notice {
+  padding: var(--space-6);
+  border: 1px solid var(--hairline-strong);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.download {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-6);
+  align-items: center;
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.download:last-child {
+  border-bottom: 0;
+}

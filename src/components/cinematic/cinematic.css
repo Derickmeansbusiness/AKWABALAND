@@ -1,0 +1,182 @@
+/* The stage pattern: a tall section with a sticky 100vh viewport inside it.
+   Scroll distance becomes time. Nothing is pinned by JS, so Lenis, native
+   scroll and reduced-motion all behave. */
+
+.act,
+.act-group {
+  position: relative;
+  background: var(--bg);
+}
+
+/* Invisible anchor spans inside an act-group; the registry observes these. */
+.act-marker {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  pointer-events: none;
+}
+
+/* Lines stacked in one cell so each statement replaces the last in place. */
+.stack {
+  display: grid;
+  justify-items: center;
+}
+.stack > * {
+  grid-area: 1 / 1;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.stage__layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+
+.stage__content {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-content);
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  pointer-events: none;
+  text-align: center;
+}
+.stage__content > * {
+  pointer-events: auto;
+}
+.stage__content--start {
+  place-items: end start;
+  text-align: left;
+  padding-bottom: clamp(3rem, 9vh, 7rem);
+}
+.stage__content--end {
+  place-items: end end;
+  text-align: right;
+  padding-bottom: clamp(3rem, 9vh, 7rem);
+}
+.stage__content--top {
+  place-items: start center;
+  padding-top: clamp(5rem, 14vh, 10rem);
+}
+.stage__content--low {
+  place-items: end center;
+  padding-bottom: clamp(5rem, 16vh, 11rem);
+}
+
+/* Each text group is a beat; it enters at a threshold and leaves at another. */
+.beat {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.vignette {
+  background: radial-gradient(ellipse 80% 70% at 50% 50%, transparent 40%, rgb(9 9 8 / 0.55) 100%);
+}
+.scrim--bottom {
+  background: linear-gradient(to top, rgb(9 9 8 / 0.78) 0%, rgb(9 9 8 / 0.25) 32%, transparent 58%);
+}
+.scrim--top {
+  background: linear-gradient(to bottom, rgb(9 9 8 / 0.55) 0%, transparent 40%);
+}
+.scrim--full {
+  background: rgb(9 9 8 / 0.42);
+}
+
+/* Media fills its layer; focal point positions it. */
+.cm {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.cm__img,
+.cm__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cm__video {
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-cinematic);
+}
+.cm__video.is-playing {
+  opacity: 1;
+}
+
+/* Scroll indicator: one hairline that breathes. */
+.scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.5rem, 4vh, 3rem);
+  transform: translateX(-50%);
+  display: grid;
+  gap: 0.75rem;
+  justify-items: center;
+  z-index: var(--z-content);
+}
+.scroll-hint__line {
+  width: 1px;
+  height: 3.5rem;
+  background: linear-gradient(to bottom, var(--stone), transparent);
+  transform-origin: top;
+  animation: hint-breathe 2.8s var(--ease-cinematic) infinite;
+}
+@keyframes hint-breathe {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  35% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1) translateY(0.75rem);
+    opacity: 0;
+  }
+}
+
+/* Wayfinding marks (Act 03) — architectural, not pills. */
+.waymark {
+  position: absolute;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0;
+}
+.waymark__tick {
+  width: 1.75rem;
+  height: 1px;
+  background: var(--stone);
+  transform-origin: left;
+}
+.waymark__dot {
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+/* Act counter — a quiet mark in the corner of cinematic stages. */
+.act-mark {
+  position: absolute;
+  left: var(--gutter);
+  top: clamp(5.5rem, 13vh, 8rem); /* clear of the fixed nav */
+  z-index: var(--z-content);
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.75rem;
+  align-items: baseline;
+  opacity: 0.8;
+}

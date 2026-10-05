@@ -1,0 +1,305 @@
+@import '@fontsource/cormorant-garamond/300.css';
+@import '@fontsource/cormorant-garamond/300-italic.css';
+@import '@fontsource/cormorant-garamond/400.css';
+@import '@fontsource/cormorant-garamond/400-italic.css';
+@import 'lenis/dist/lenis.css';
+
+/* ───────────────────────────── Tokens ───────────────────────────── */
+:root {
+  /* palette */
+  --obsidian: #090908;
+  --black-warm: #11100d;
+  --ivory: #f2eee5;
+  --stone: #d8d0c2;
+  --gold: #b79a58;
+  --bronze: #72502c;
+  --forest: #183328;
+  --earth: #9b8167;
+  --white-soft: #faf8f3;
+
+  /* semantic */
+  --bg: var(--obsidian);
+  --bg-raised: var(--black-warm);
+  --fg: var(--ivory);
+  --fg-muted: var(--stone);
+  --fg-faint: var(--earth);
+  --accent: var(--gold);
+  --hairline: rgb(242 238 229 / 0.14);
+  --hairline-strong: rgb(242 238 229 / 0.28);
+
+  /* type */
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-text: var(--font-geist-sans), 'Helvetica Neue', Arial, sans-serif;
+
+  --text-display-xl: clamp(3.25rem, 8vw, 9rem);
+  --text-display-l: clamp(2.5rem, 5.2vw, 5.75rem);
+  --text-display-m: clamp(1.875rem, 3.3vw, 3.625rem);
+  --text-display-s: clamp(1.5rem, 2.1vw, 2.25rem);
+  --text-lead: clamp(1.125rem, 1.35vw, 1.5rem);
+  --text-body: clamp(1rem, 1.05vw, 1.1875rem);
+  --text-small: 0.875rem;
+  --text-label: 0.6875rem;
+
+  --tracking-label: 0.22em;
+  --tracking-label-wide: 0.3em;
+  --tracking-display: -0.005em;
+  --leading-display: 1.02;
+  --leading-body: 1.6;
+
+  --measure-display: 26ch;
+  --measure-prose: 60ch;
+
+  /* space — a quiet scale; luxury is the gaps */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+
+  /* motion */
+  --ease-ui: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-statement: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-reveal: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 240ms;
+  --dur-base: 600ms;
+  --dur-slow: 1200ms;
+  --dur-cinematic: 2200ms;
+
+  /* layers */
+  --z-media: 0;
+  --z-overlay: 1;
+  --z-content: 2;
+  --z-nav: 50;
+  --z-presentation: 60;
+  --z-cursor: 100;
+
+  color-scheme: dark;
+}
+
+/* ───────────────────────────── Base ───────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-text);
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: auto; /* Lenis owns smoothing; never double up */
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--fg);
+  font-weight: 300;
+  line-height: var(--leading-body);
+  overflow-x: clip;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+p,
+figure,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+img,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgb(183 154 88 / 0.35);
+  color: var(--white-soft);
+}
+
+:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* ───────────────────────────── Film grain ─────────────────────────────
+   One fixed layer, low opacity. Rasterised once by the browser; costs nothing
+   on scroll. Disabled where the user has asked for less motion/contrast. */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+}
+
+@media (prefers-reduced-motion: reduce), (prefers-contrast: more) {
+  .grain::after {
+    display: none;
+  }
+}
+
+/* ───────────────────────────── Typography utilities ───────────────────────────── */
+.display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  max-width: var(--measure-display);
+}
+.display--xl {
+  font-size: var(--text-display-xl);
+  letter-spacing: 0.02em;
+  line-height: 0.96;
+}
+.display--l {
+  font-size: var(--text-display-l);
+}
+.display--m {
+  font-size: var(--text-display-m);
+}
+.display--s {
+  font-size: var(--text-display-s);
+  line-height: 1.12;
+}
+.display--caps {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.label {
+  font-family: var(--font-text);
+  font-size: var(--text-label);
+  font-weight: 400;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.label--wide {
+  letter-spacing: var(--tracking-label-wide);
+}
+.label--accent {
+  color: var(--accent);
+}
+.label--faint {
+  color: var(--fg-faint);
+}
+
+.lead {
+  font-size: var(--text-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 44ch;
+  color: var(--fg);
+}
+.prose {
+  font-size: var(--text-body);
+  max-width: var(--measure-prose);
+  color: var(--fg-muted);
+}
+
+/* Hairline rule, the one decorative element we permit ourselves. */
+.rule {
+  width: 2.5rem;
+  height: 1px;
+  background: var(--hairline-strong);
+}
+.rule--accent {
+  background: var(--accent);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ───────────────────────────── Motion primitives ─────────────────────────────
+   Lines reveal by clipping, never by sliding in from off-screen. */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em; /* keep descenders */
+  margin-bottom: -0.08em;
+}
+/* No CSS transform here on purpose: GSAP owns the offset (set before first
+   paint in RevealLines). A CSS translate would be read into GSAP's cache as a
+   pixel offset and survive every yPercent tween. */
+.line-mask > span {
+  display: block;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Native cursor stays; our dot sits above it on fine pointers only. */
+@media (pointer: fine) {
+  html.has-cursor-dot a,
+  html.has-cursor-dot button,
+  html.has-cursor-dot [data-cursor] {
+    cursor: none;
+  }
+}

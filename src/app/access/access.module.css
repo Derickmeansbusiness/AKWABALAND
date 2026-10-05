@@ -1,0 +1,56 @@
+.page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+}
+.card {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 34rem;
+  width: 100%;
+}
+.field {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.input {
+  font: inherit;
+  font-size: 1.125rem;
+  letter-spacing: 0.2em;
+  color: var(--fg);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--hairline-strong);
+  padding: 0.75rem 0;
+  outline: none;
+  transition: border-color var(--dur-base) var(--ease-ui);
+}
+.input:focus {
+  border-color: var(--gold);
+}
+.error {
+  color: var(--gold);
+  font-size: var(--text-small);
+}
+.submit {
+  justify-self: start;
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 0.75rem;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0 1.5rem;
+  border: 1px solid var(--stone);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  transition:
+    background-color var(--dur-base) var(--ease-ui),
+    color var(--dur-base) var(--ease-ui);
+}
+.submit:hover {
+  background: var(--ivory);
+  color: var(--obsidian);
+}

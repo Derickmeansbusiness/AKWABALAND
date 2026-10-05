@@ -1,0 +1,64 @@
+.bar {
+  position: fixed;
+  right: var(--gutter);
+  bottom: clamp(1rem, 3vh, 2rem);
+  z-index: var(--z-presentation);
+  display: grid;
+  justify-items: end;
+  gap: 0.6rem;
+  text-align: right;
+}
+.indicator {
+  display: grid;
+  gap: 0.15rem;
+  justify-items: end;
+}
+.count {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--fg);
+}
+.of {
+  color: var(--fg-faint);
+  font-size: 1rem;
+}
+.title {
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.controls {
+  display: flex;
+  gap: 0.25rem;
+}
+.ctl {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--hairline-strong);
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  display: grid;
+  place-items: center;
+  transition: border-color var(--dur-base) var(--ease-ui);
+}
+.ctl:hover:not(:disabled) {
+  border-color: var(--stone);
+}
+.ctl:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.hint {
+  font-size: 0.6875rem;
+  color: var(--fg-faint);
+  max-width: 24ch;
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-ui);
+}
+.bar:hover .hint,
+.bar:focus-within .hint {
+  opacity: 1;
+}
