@@ -13,7 +13,7 @@ npm run media:fetch               # pulls the approved renders and clips from Hi
 npm run dev
 ```
 
-`media:fetch` needs network access to the two Higgsfield CDN hosts and, ideally, `ffmpeg` on PATH for the muted 1080/720 clip transcodes. Without ffmpeg the 4K originals are copied and played muted. Until the fetch has run, set `NEXT_PUBLIC_MEDIA_SOURCE=remote` to stream straight from the CDN while developing.
+`media:fetch` needs network access to the two Higgsfield CDN hosts and, ideally, `ffmpeg` on PATH for the muted 1080/720 clip transcodes. Without ffmpeg the 4K originals are copied and played muted. Until the fetch has run, the build streams straight from the CDN on its own (it checks for `public/media/akwaba/placeholders.json`); set `NEXT_PUBLIC_MEDIA_SOURCE` only to force one or the other.
 
 Before shipping:
 

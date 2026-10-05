@@ -1,10 +1,20 @@
 import type { NextConfig } from 'next';
+import { existsSync } from 'node:fs';
+import path from 'node:path';
 
 const isPrivate = (process.env.SITE_VISIBILITY ?? 'PRIVATE') !== 'PUBLIC';
+
+// Where the pictures come from. `npm run media:fetch` writes placeholders.json
+// last, so its presence means the encoded ladders are here; otherwise stream
+// from the Higgsfield CDN rather than ship a site with no photographs.
+// An explicit NEXT_PUBLIC_MEDIA_SOURCE still wins.
+const hasLocalMedia = existsSync(path.join(process.cwd(), 'public/media/akwaba/placeholders.json'));
+const mediaSource = process.env.NEXT_PUBLIC_MEDIA_SOURCE ?? (hasLocalMedia ? 'local' : 'remote');
 const SITE_HOST = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://akwabaland.com').replace(/^https?:\/\//, '').replace(/\/$/, '');
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  env: { NEXT_PUBLIC_MEDIA_SOURCE: mediaSource },
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 960, 1280, 1920, 2560],
