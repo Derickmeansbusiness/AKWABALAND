@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 
 const isPrivate = (process.env.SITE_VISIBILITY ?? 'PRIVATE') !== 'PUBLIC';
+const SITE_HOST = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://akwabaland.com').replace(/^https?:\/\//, '').replace(/\/$/, '');
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -16,6 +17,14 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [{ source: '/favicon.ico', destination: '/icon.svg' }];
+  },
+  // One address. The Vercel preview host and www both land on the apex domain,
+  // so every link anyone forwards reads akwabaland.com.
+  async redirects() {
+    return [
+      { source: '/:path*', has: [{ type: 'host', value: 'akwabaland.vercel.app' }], destination: `https://${SITE_HOST}/:path*`, permanent: true },
+      { source: '/:path*', has: [{ type: 'host', value: `www.${SITE_HOST}` }], destination: `https://${SITE_HOST}/:path*`, permanent: true },
+    ];
   },
   async headers() {
     const base = [

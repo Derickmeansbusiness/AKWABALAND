@@ -4,7 +4,11 @@ import { brand } from '@/data/siteContent';
 import { isIndexable } from '@/lib/visibility';
 import './globals.css';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://akwabaland.com';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  alternates: { canonical: '/' },
   title: {
     default: `${brand.name} — ${brand.tagline}`,
     template: `%s — ${brand.name}`,
@@ -18,6 +22,8 @@ export const metadata: Metadata = {
     title: `${brand.name} — ${brand.tagline}`,
     description: brand.descriptor,
     type: 'website',
+    url: '/',
+    siteName: brand.name,
   },
 };
 
