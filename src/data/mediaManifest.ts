@@ -689,6 +689,23 @@ export const excludedAudio = [
   { sourceId: '0c07e36b-0987-4686-bc73-78b8f0b5700c', reason: 'Continuation of the same score, 20 s.' },
 ] as const;
 
+/**
+ * Ambient sound layers. Empty on purpose: nothing has been commissioned that
+ * meets the brief (sparse, no melody, ≤ 20 s loops). Add entries here and the
+ * sound control appears. See HIGGSFIELD_MOTION_BRIEF.md → Sound.
+ */
+export interface SoundLayer {
+  id: string;
+  /** local path under public/media/sound */
+  src: string;
+  /** which acts it may play under */
+  acts: string[];
+  /** 0..1 */
+  gain: number;
+  description: string;
+}
+export const soundLayers: readonly SoundLayer[] = [];
+
 /** Superseded or duplicate clips we keep registered but never ship. */
 export const excludedVideo = [
   { sourceId: '60a9ed3b-f7e1-4023-9329-b42cef4e6357', reason: 'Topaz 4K upscale of the first-take child-eyes clip; the 08:22 re-take is used instead.' },

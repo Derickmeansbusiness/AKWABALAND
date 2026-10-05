@@ -7,6 +7,7 @@ import { ActProvider } from './ActRegistry';
 import { SiteNav } from '@/components/navigation/SiteNav';
 import { PresentationBar } from '@/components/presentation/PresentationBar';
 import { Cursor } from '@/components/ui/Cursor';
+import { SoundControl } from '@/components/ui/SoundControl';
 import { actOrderFor } from '@/data/siteContent';
 import './cinematic.css';
 
@@ -18,6 +19,7 @@ function Shell({ children }: { children: ReactNode }) {
         <SiteNav />
         <main id="unveiling">{children}</main>
         <PresentationBar />
+        <SoundControl />
         <Cursor />
       </ActProvider>
     </SmoothScrollProvider>

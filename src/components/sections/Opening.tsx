@@ -2,6 +2,8 @@
 
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
+import { preload } from 'react-dom';
+import { resolveImage } from '@/lib/media/resolve';
 import { ActMarker, ActMark } from '@/components/cinematic/Act';
 import { CinematicMedia } from '@/components/media/CinematicMedia';
 import { RevealLines } from '@/components/typography/RevealLines';
@@ -61,6 +63,10 @@ export function Opening() {
 
   const hero = getMedia('aerial-reveal');
   const gate = getMedia('entrance-gateway');
+
+  // The only two images worth preloading: the frame under the Awakening and the one that follows it.
+  preload(resolveImage(hero).src, { as: 'image', fetchPriority: 'high' });
+  preload(resolveImage(gate).src, { as: 'image' });
 
   // The three lines arrive on their own clock, one replacing the last.
   useEffect(() => {
