@@ -156,7 +156,21 @@ export function AfricaSculpture({ progressRef, onReady, className }: Props) {
       let readyFired = false;
       const tmp = new THREE.Vector3();
 
+      // Render only while the opening is near the viewport.
+      let visible = false;
+      const io = new IntersectionObserver(
+        ([entry]) => {
+          const was = visible;
+          visible = entry.isIntersecting;
+          if (visible && !was && !raf) raf = requestAnimationFrame(frame);
+        },
+        { rootMargin: '25% 0px 25% 0px' },
+      );
+      io.observe(host);
+      disposables.push({ dispose: () => io.disconnect() });
+
       const frame = (now: number) => {
+        raf = 0;
         if (disposed || !renderer) return;
         const elapsed = (now - t0) / 1000;
         const p = THREE.MathUtils.clamp(progressRef.current, 0, 1);
@@ -195,7 +209,7 @@ export function AfricaSculpture({ progressRef, onReady, className }: Props) {
           readyFired = true;
           onReady?.();
         }
-        raf = requestAnimationFrame(frame);
+        if (visible) raf = requestAnimationFrame(frame);
       };
       raf = requestAnimationFrame(frame);
 

@@ -39,6 +39,11 @@
   inset: 0;
   will-change: transform, opacity;
 }
+/* The black that opens and closes a stage sits above everything, content included. */
+.veil {
+  z-index: 3;
+  pointer-events: none;
+}
 
 .stage__content {
   position: absolute;
@@ -149,6 +154,9 @@
 /* Wayfinding marks (Act 03) — architectural, not pills. */
 .waymark {
   position: absolute;
+  z-index: var(--z-content);
+}
+.waymark__inner {
   display: grid;
   grid-auto-flow: column;
   align-items: center;
@@ -166,6 +174,400 @@
   height: 4px;
   background: var(--gold);
   border-radius: 50%;
+}
+
+/* ───────── Experience chapters ───────── */
+.chapter-grid {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-content);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  gap: var(--space-8);
+  padding: clamp(5.5rem, 13vh, 8rem) var(--gutter) clamp(3rem, 9vh, 7rem);
+  pointer-events: none;
+}
+.chapter-grid > * {
+  pointer-events: auto;
+}
+.words {
+  display: grid;
+  gap: 0.1em;
+  align-self: end;
+}
+.words--top {
+  align-self: start;
+}
+.words--right {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  text-align: right;
+}
+.chapter-title--left {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: end;
+}
+.chapter-title {
+  display: grid;
+  gap: var(--space-4);
+  align-self: end;
+  max-width: 44ch;
+}
+.chapter-title--right {
+  justify-self: end;
+  text-align: right;
+}
+.chapter-title--span {
+  grid-column: 1 / -1;
+  justify-self: center;
+  text-align: center;
+}
+.chapter-title__name {
+  font-family: var(--font-display);
+  font-size: var(--text-display-s);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.chapter-title__desc {
+  color: var(--fg-muted);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  max-width: 40ch;
+}
+.chapter-caption {
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--fg-faint);
+  max-width: 44ch;
+}
+@media (max-width: 767px) {
+  .chapter-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto auto;
+    gap: var(--space-6);
+  }
+  .words--right,
+  .chapter-title--right {
+    justify-self: start;
+    text-align: left;
+  }
+  .words--right,
+  .chapter-title--left {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .words--top {
+    align-self: end;
+  }
+}
+
+/* ───────── Act 05 — Nations ───────── */
+.nations {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-content);
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--space-8);
+  padding: clamp(5.5rem, 13vh, 8rem) var(--gutter) clamp(2rem, 6vh, 4rem);
+}
+.nations__text {
+  display: grid;
+  align-content: center;
+  gap: var(--space-6);
+}
+.nations__map {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+}
+.map-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 78vh;
+  overflow: visible;
+}
+.map-country {
+  fill: #3a2715;
+  stroke: rgb(242 238 229 / 0.13);
+  stroke-width: 0.6;
+  transition: fill 0.5s var(--ease-ui);
+  outline: none;
+}
+.map-country[data-interactive='true'] {
+  cursor: pointer;
+}
+.map-country.is-active {
+  fill: var(--gold);
+}
+.map-country:focus-visible {
+  stroke: var(--ivory);
+  stroke-width: 1.2;
+}
+.nations__panel {
+  border-top: 1px solid var(--hairline);
+  padding-top: var(--space-4);
+  display: grid;
+  gap: var(--space-3);
+  min-height: 15rem;
+  align-content: start;
+}
+.nations__name {
+  font-family: var(--font-display);
+  font-size: var(--text-display-s);
+  line-height: 1.1;
+}
+.nations__cats {
+  display: grid;
+  gap: 0.35rem;
+}
+.nations__cats li {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: 0.5rem;
+  color: var(--fg-muted);
+  font-size: var(--text-small);
+}
+.nations__cats li::before {
+  content: '';
+  width: 0.6rem;
+  height: 1px;
+  background: var(--hairline-strong);
+  margin-top: 0.7em;
+}
+@media (max-width: 899px) {
+  .nations {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: var(--space-4);
+    padding-top: clamp(4.5rem, 10vh, 6rem);
+  }
+  .nations__text {
+    align-content: start;
+    gap: var(--space-4);
+  }
+  .nations__panel {
+    min-height: 0;
+  }
+  .map-svg {
+    max-height: 44vh;
+  }
+}
+
+/* ───────── Act 07 — Economy ───────── */
+.economy {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-content);
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: var(--space-8);
+  padding: clamp(5.5rem, 13vh, 8rem) var(--gutter) clamp(2rem, 6vh, 4rem);
+  align-items: center;
+}
+.economy__text {
+  display: grid;
+  gap: var(--space-6);
+}
+.eco-svg {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  overflow: visible;
+}
+.eco-line {
+  stroke: rgb(242 238 229 / 0.2);
+  stroke-width: 0.8;
+  fill: none;
+  transition: stroke 0.4s var(--ease-ui);
+}
+.eco-line.is-hot {
+  stroke: var(--gold);
+}
+.eco-ring {
+  fill: none;
+  stroke: rgb(242 238 229 / 0.08);
+  stroke-width: 0.6;
+}
+.eco-node {
+  outline: none;
+}
+.eco-node circle {
+  fill: var(--stone);
+  transition: fill 0.4s var(--ease-ui);
+}
+.eco-node text {
+  fill: var(--fg-muted);
+  font-family: var(--font-text);
+  font-size: 12.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: fill 0.4s var(--ease-ui);
+}
+.eco-node.is-hot circle,
+.eco-node:focus-visible circle {
+  fill: var(--gold);
+}
+.eco-node.is-hot text,
+.eco-node:focus-visible text {
+  fill: var(--ivory);
+}
+.eco-centre text {
+  fill: var(--ivory);
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.eco-centre circle {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 0.8;
+}
+.eco-note {
+  min-height: 2.5rem;
+  color: var(--fg-faint);
+  font-size: var(--text-small);
+}
+@media (max-width: 899px) {
+  .economy {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: start;
+    padding-top: clamp(4.5rem, 10vh, 6rem);
+  }
+  .eco-svg {
+    max-height: 46vh;
+  }
+  .eco-node text {
+    font-size: 15px;
+  }
+}
+
+/* ───────── Act 08 — Partnership ───────── */
+.partner {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-content);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  padding: clamp(5.5rem, 13vh, 8rem) var(--gutter) clamp(3rem, 9vh, 7rem);
+  align-items: center;
+}
+.partner__col {
+  display: grid;
+  gap: var(--space-4);
+}
+.partner__col--right {
+  text-align: right;
+  justify-items: end;
+}
+.partner__points {
+  display: grid;
+  gap: 0.35rem;
+}
+.partner__points li {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.9vw, 2rem);
+  line-height: 1.2;
+  color: var(--fg);
+  opacity: 0;
+}
+@media (max-width: 767px) {
+  .partner {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: var(--space-6);
+  }
+  .partner__col--right {
+    text-align: left;
+    justify-items: start;
+  }
+  .partner__points li {
+    font-size: 1.125rem;
+  }
+}
+
+/* ───────── Act 09 — Network ───────── */
+.network-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.net-outline {
+  fill: rgb(114 80 44 / 0.16);
+  stroke: rgb(183 154 88 / 0.38);
+  stroke-width: 0.8;
+}
+.net-line {
+  stroke: var(--gold);
+  stroke-opacity: 0.55;
+  stroke-width: 1;
+  fill: none;
+}
+.net-region circle {
+  fill: none;
+  stroke: var(--stone);
+  stroke-dasharray: 3 4;
+  stroke-width: 1;
+}
+.net-region text,
+.net-flag text {
+  fill: var(--fg-muted);
+  font-family: var(--font-text);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.net-flag .core {
+  fill: var(--gold);
+}
+.net-flag .ring {
+  fill: none;
+  stroke: var(--gold);
+  stroke-opacity: 0.45;
+  stroke-width: 0.8;
+}
+.net-flag text {
+  fill: var(--ivory);
+}
+
+/* ───────── Act 10 — Invitation ───────── */
+.invite-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+}
+.invite-footer {
+  display: grid;
+  gap: 0.3rem;
+  justify-items: center;
+  text-align: center;
+}
+
+/* Light treatments the recipes animate. Opacity is set by GSAP. */
+.light--shadow-drift {
+  background: linear-gradient(100deg, rgb(9 9 8 / 0.55) 0%, transparent 35%, transparent 65%, rgb(9 9 8 / 0.35) 100%);
+  background-size: 160% 100%;
+}
+.light--warm {
+  background: linear-gradient(to top, rgb(114 80 44 / 0.55), rgb(183 154 88 / 0.08) 60%, transparent);
+  mix-blend-mode: multiply;
+}
+.light--evening {
+  background: #3a1e0c;
+  mix-blend-mode: multiply;
+}
+.light--forest {
+  background: radial-gradient(ellipse 70% 90% at 50% 50%, transparent 50%, rgb(24 51 40 / 0.55) 100%);
 }
 
 /* Act counter — a quiet mark in the corner of cinematic stages. */

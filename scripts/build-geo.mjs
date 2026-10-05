@@ -106,6 +106,10 @@ const lookup = Object.fromEntries(
 for (const [id, [name, iso3]] of Object.entries(TERRITORIES)) lookup[id] = { name, iso3, region: null, interactive: false };
 writeFileSync(path.join(ROOT, 'src/data/africaCountries.json'), JSON.stringify(lookup, null, 2));
 
+// World land at 1:110m for the globe texture — small, and the globe is never closer than a continent.
+const land = JSON.parse(readFileSync(path.join(ROOT, 'node_modules/world-atlas/land-110m.json'), 'utf8'));
+writeFileSync(path.join(ROOT, 'public/geo/land-110m.topo.json'), JSON.stringify(land));
+
 // Sanity: the merged outline must be a single valid multipolygon.
 const merged = topojson.merge(subset, geometries);
 console.log(`Africa: ${geometries.length} geometries, outline has ${merged.coordinates.length} rings; wrote public/geo/africa-50m.topo.json`);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { acts, presentation } from '@/data/siteContent';
 import { useActRegistry } from '@/components/cinematic/ActRegistry';
 import { usePresentationMode } from '@/hooks/usePresentationMode';
@@ -19,15 +19,23 @@ export function PresentationBar() {
 
   const index = Math.max(0, order.indexOf(current));
   const meta = acts.find((a) => a.id === current);
+  // Rapid key presses should step from where we are *going*, not where the observer last saw us.
+  const pending = useRef<number | null>(null);
+  useEffect(() => {
+    pending.current = null;
+  }, [current]);
 
   const goTo = useCallback(
     (i: number) => {
-      const id = order[Math.min(order.length - 1, Math.max(0, i))];
-      const m = acts.find((a) => a.id === id);
-      if (m) scrollTo(`#${m.anchor}`);
+      const clamped = Math.min(order.length - 1, Math.max(0, i));
+      const m = acts.find((a) => a.id === order[clamped]);
+      if (!m) return;
+      pending.current = clamped;
+      scrollTo(`#${m.anchor}`);
     },
     [order, scrollTo],
   );
+  const step = useCallback((delta: number) => goTo((pending.current ?? index) + delta), [goTo, index]);
 
   const toggleFs = useCallback(() => {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {});
@@ -43,12 +51,12 @@ export function PresentationBar() {
         case 'PageDown':
         case ' ':
           e.preventDefault();
-          goTo(index + 1);
+          step(1);
           break;
         case 'ArrowLeft':
         case 'PageUp':
           e.preventDefault();
-          goTo(index - 1);
+          step(-1);
           break;
         case 'Home':
           goTo(0);
@@ -69,7 +77,7 @@ export function PresentationBar() {
       window.removeEventListener('keydown', onKey);
       document.removeEventListener('fullscreenchange', onFs);
     };
-  }, [enabled, goTo, index, order.length, toggleFs]);
+  }, [enabled, goTo, step, order.length, toggleFs]);
 
   if (!enabled) return null;
 
@@ -83,10 +91,10 @@ export function PresentationBar() {
         <span className={styles.title}>{meta?.title}</span>
       </div>
       <div className={styles.controls}>
-        <button className={styles.ctl} onClick={() => goTo(index - 1)} aria-label="Previous act" disabled={index === 0}>
+        <button className={styles.ctl} onClick={() => step(-1)} aria-label="Previous act" disabled={index === 0}>
           ←
         </button>
-        <button className={styles.ctl} onClick={() => goTo(index + 1)} aria-label="Next act" disabled={index === order.length - 1}>
+        <button className={styles.ctl} onClick={() => step(1)} aria-label="Next act" disabled={index === order.length - 1}>
           →
         </button>
         <button className={styles.ctl} onClick={toggleFs} aria-label={fs ? presentation.exitFullscreen : presentation.fullscreen}>

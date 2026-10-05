@@ -198,7 +198,7 @@ export function Opening() {
           </p>
         </div>
 
-        <div ref={toBlack} className="stage__layer" style={{ background: 'var(--obsidian)', opacity: 0, pointerEvents: 'none' }} />
+        <div ref={toBlack} className="stage__layer veil" style={{ background: 'var(--obsidian)', opacity: 0 }} />
       </div>
     </div>
   );

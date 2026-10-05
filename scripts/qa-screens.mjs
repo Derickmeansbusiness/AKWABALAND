@@ -38,7 +38,7 @@ const DEVICES = {
 };
 
 // Fractions of total scroll height to sample.
-const DEPTHS = [0, 0.03, 0.06, 0.09, 0.12, 0.16, 0.2, 0.25, 0.3, 0.36, 0.42, 0.5, 0.58, 0.66, 0.74, 0.82, 0.9, 0.97, 1];
+const DEPTHS = Array.from({ length: 61 }, (_, i) => i / 60);
 
 const browser = await chromium.launch({ executablePath: findChromium(), args: ['--use-gl=swiftshader', '--enable-webgl', '--ignore-gpu-blocklist'] });
 mkdirSync(OUT, { recursive: true });
@@ -56,7 +56,7 @@ for (const [name, device] of Object.entries(DEVICES)) {
   for (const d of DEPTHS) {
     await page.evaluate((y) => window.scrollTo(0, y), Math.round(total * d));
     await page.waitForTimeout(1400);
-    await page.screenshot({ path: path.join(OUT, `${name}-${String(Math.round(d * 100)).padStart(3, '0')}.png`) });
+    await page.screenshot({ path: path.join(OUT, `${name}-${String(Math.round(d * 100)).padStart(3, '0')}.png`), timeout: 90000 });
   }
   const file = path.join(OUT, `${name}-errors.txt`);
   const { writeFileSync } = await import('node:fs');

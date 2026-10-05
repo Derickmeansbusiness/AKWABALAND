@@ -16,7 +16,7 @@ function Shell({ children }: { children: ReactNode }) {
     <SmoothScrollProvider>
       <ActProvider order={actOrderFor(audience)}>
         <SiteNav />
-        <main id="experience">{children}</main>
+        <main id="unveiling">{children}</main>
         <PresentationBar />
         <Cursor />
       </ActProvider>

@@ -144,8 +144,8 @@ export const act10 = {
   triad: ['A UAE flagship.', 'A global platform.', 'An African legacy.'],
   actions: [
     { label: 'Request private briefing', href: '/briefing', primary: true },
-    { label: 'View development framework', href: '/development' },
-    { label: 'Download concept note', href: '/downloads' },
+    { label: 'View development framework', href: '/development', primary: false },
+    { label: 'Download concept note', href: '/downloads', primary: false },
   ],
   footer: brand.status,
 } as const;
