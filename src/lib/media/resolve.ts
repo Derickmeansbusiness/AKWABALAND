@@ -28,10 +28,17 @@ function ladder(asset: MediaAsset, ext: 'avif' | 'webp'): string {
     .join(', ');
 }
 
-export function resolveImage(asset: MediaAsset): ResolvedImage {
+/**
+ * @param preview  true on phones: in remote mode use Higgsfield's reduced
+ *                 `_min.webp` rather than the 3840px PNG. A phone cannot hold
+ *                 fifteen 33 MB decoded frames; the compositor gives up and
+ *                 every animation appears frozen.
+ */
+export function resolveImage(asset: MediaAsset, preview = false): ResolvedImage {
   if (mediaMode() === 'remote') {
     const source = sourceFor(asset);
-    return { src: source.remote, avifSrcSet: '', webpSrcSet: '', width: asset.width, height: asset.height };
+    const src = preview && source.remotePreview ? source.remotePreview : source.remote;
+    return { src, avifSrcSet: '', webpSrcSet: '', width: asset.width, height: asset.height };
   }
   return {
     src: asset.src,

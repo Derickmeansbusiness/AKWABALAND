@@ -2,7 +2,7 @@
 
 import { forwardRef, useEffect, useRef, useState, type CSSProperties } from 'react';
 import type { MediaAsset } from '@/data/mediaManifest';
-import { resolveImage, resolveVideo, toneColour } from '@/lib/media/resolve';
+import { mediaMode, resolveImage, resolveVideo, toneColour } from '@/lib/media/resolve';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useTier } from '@/hooks/useMediaQuery';
 
@@ -36,9 +36,13 @@ export const CinematicMedia = forwardRef<HTMLDivElement, CinematicMediaProps>(fu
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const [playing, setPlaying] = useState(false);
 
-  const img = resolveImage(asset);
-  const clip = asset.optionalVideo && video && !reduced ? resolveVideo(asset.optionalVideo) : null;
-  const clipSrc = clip ? (tier === 'mobile' ? clip.mobile : clip.desktop) : null;
+  const mobile = tier === 'mobile';
+  const img = resolveImage(asset, mobile);
+  // Phones get the clip only once media:fetch has produced a 720p transcode; the
+  // remote fallback is the raw 4K MP4, which is never right on a phone.
+  const clipAllowed = video && !reduced && !(mobile && mediaMode() === 'remote');
+  const clip = asset.optionalVideo && clipAllowed ? resolveVideo(asset.optionalVideo) : null;
+  const clipSrc = clip ? (mobile ? clip.mobile : clip.desktop) : null;
 
   const crop = tier === 'mobile' ? asset.mobileCrop : asset.desktopCrop;
   const objectPosition = crop.position ?? `${asset.focalPoint.x * 100}% ${asset.focalPoint.y * 100}%`;
@@ -53,6 +57,10 @@ export const CinematicMedia = forwardRef<HTMLDivElement, CinematicMediaProps>(fu
       ([entry]) => {
         if (entry.isIntersecting) {
           if (!loaded) {
+            // iOS checks the attribute, not just the property, before allowing autoplay.
+            node.muted = true;
+            node.defaultMuted = true;
+            node.setAttribute('muted', '');
             node.src = clipSrc;
             node.load();
             loaded = true;

@@ -180,7 +180,9 @@ canvas {
   background-size: 240px 240px;
 }
 
-@media (prefers-reduced-motion: reduce), (prefers-contrast: more) {
+/* A fixed, blended, double-size layer over everything is the single most
+   expensive thing a phone can be asked to composite. Desktop keeps it. */
+@media (prefers-reduced-motion: reduce), (prefers-contrast: more), (max-width: 767px) {
   .grain::after {
     display: none;
   }

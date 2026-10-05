@@ -92,6 +92,25 @@
     0 2px 18px rgb(9 9 8 / 0.45),
     0 12px 48px rgb(9 9 8 / 0.35);
 }
+
+/* Phones: fewer composited layers, one shadow instead of three. The pool
+   does the heavy lifting there; wide blurred shadows on 50px serif type are
+   what mobile GPUs choke on. */
+@media (max-width: 767px) {
+  .stage__layer {
+    will-change: auto;
+  }
+  .stage .display,
+  .stage .lead,
+  .stage .label,
+  .stage .prose,
+  .stage .chapter-title__name,
+  .stage .chapter-title__desc,
+  .stage .chapter-caption,
+  .stage .waymark__label {
+    text-shadow: 0 1px 3px rgb(9 9 8 / 0.6);
+  }
+}
 .stage__content--start {
   place-items: end start;
   text-align: left;
