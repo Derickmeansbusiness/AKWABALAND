@@ -18,13 +18,13 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [{ source: '/favicon.ico', destination: '/icon.svg' }];
   },
-  // One address. The Vercel preview host and www both land on the apex domain,
-  // so every link anyone forwards reads akwabaland.com.
+  // www ↔ apex is Vercel's job (Project → Settings → Domains), never the app's:
+  // two layers each redirecting the other way is an instant loop. The only
+  // host redirect here sends the *.vercel.app preview host to the real
+  // address, and only when the real address is not itself a vercel.app host.
   async redirects() {
-    return [
-      { source: '/:path*', has: [{ type: 'host', value: 'akwabaland.vercel.app' }], destination: `https://${SITE_HOST}/:path*`, permanent: true },
-      { source: '/:path*', has: [{ type: 'host', value: `www.${SITE_HOST}` }], destination: `https://${SITE_HOST}/:path*`, permanent: true },
-    ];
+    if (SITE_HOST.endsWith('.vercel.app')) return [];
+    return [{ source: '/:path*', has: [{ type: 'host', value: 'akwabaland.vercel.app' }], destination: `https://${SITE_HOST}/:path*`, permanent: false }];
   },
   async headers() {
     const base = [
